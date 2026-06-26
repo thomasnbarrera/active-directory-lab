@@ -34,7 +34,8 @@ In progress. Core Active Directory setup, domain user creation, client domain jo
 
 **To begin, I started by creating the domain controller for this lab. I specified hardware requirements that I believed would be sufficient for the domain controller, but also kept in mind that I needed to save resources for my actual desktop and the end-user machines that would eventually join the domain.**
 
-Screenshot placeholder: VirtualBox VM creation and hardware/resource settings for the domain controller.
+![](screenshots/02-domaincontroller-s1.png)
+![](screenshots/02-domaincontroller-s2.png)
 
 ## 3. Installing Active Directory Domain Services
 
@@ -52,7 +53,8 @@ For this lab, my domain is:
 
 ad.lab.test
 
-Screenshot placeholder: AD DS role installation and domain controller promotion.
+![](screenshots/03-installing-ad-s1.png)
+![](screenshots/03-installing-ad-s2.png)
 
 ## 4. Installing VirtualBox Guest Additions
 
@@ -68,7 +70,9 @@ Shared Folders > Shared Folders Settings > Add Share > map the desired folder
 
 To verify the mapping was successful, I went back to File Explorer inside the VM, clicked This PC, and confirmed that the mapped location appeared beneath the local drives.
 
-Screenshot placeholder: Guest Additions install and mapped shared folder verification.
+![](screenshots/04-guestadditions-s1.png)
+![](screenshots/04-guestadditions-s2.png)
+![](screenshots/04-guestadditions-s3.png)
 
 ## 5. Creating Domain Users
 
@@ -102,7 +106,8 @@ Delete
 
 Properties
 
-Screenshot placeholder: Active Directory Users and Computers showing John and Sarah user accounts.
+![](screenshots/05-domain-users-s1.png)
+![](screenshots/05-domain-users-s2.png)
 
 ## 6. Creating the Windows 10 Client VM
 
@@ -110,7 +115,8 @@ For the client machines I decided to run Windows 10 primarily to reduce unnecess
 
 To get everything set up, I went to the official Microsoft website and downloaded the media creation tool to create a Windows 10 ISO file. Then I created a new virtual machine in VirtualBox and completed the Windows 10 setup process.
 
-Screenshot placeholder: Windows 10 VM creation and setup.
+![](screenshots/06-win10client-s1.png)
+![](screenshots/06-win10client-s2.png)
 
 ## 7. Configuring the Virtual Network
 
@@ -120,7 +126,8 @@ In VirtualBox, I went to:
 
 Devices > Network > Network Settings > set Adapter 1 to Host-only Adapter (Host-only adapter creates a private network between my VMs and host machine - preventing network setting assignment from the DHCP server within my home’s router)
 
-Screenshot placeholder: VirtualBox host-only adapter configuration.
+![](screenshots/07-virtualnetwork-s1.png)
+![](screenshots/07-virtualnetwork-s2.png)
 
 ## 8. Configuring the Domain Controller Network Settings
 
@@ -146,7 +153,8 @@ ipconfig
 
 This allowed me to verify that my changes were saved.
 
-Screenshot placeholder: DC01 IPv4 settings and ipconfig output.
+![](screenshots/08-dc01network-s1.png)
+![](screenshots/08-dc01network-s2.png)
 
 ## 9. Configuring the Windows 10 Client Network Settings
 
@@ -178,7 +186,9 @@ ipconfig /all
 
 This allowed me to verify that the DNS server was assigned correctly.
 
-Screenshot placeholder: WIN10-01 IPv4 settings, successful ping to DC01, and ipconfig /all output.
+![](screenshots/09-win10network-s1.png)
+![](screenshots/09-win10network-s2.png)
+![](screenshots/09-win10network-s3.png)
 
 ## 10. Joining the Windows 10 Client to the Domain
 
@@ -204,7 +214,9 @@ Another verification method is to sign in as a domain user on the client machine
 
 whoami /fqdn
 
-Screenshot placeholder: Domain join screen, welcome message, and WIN10-01 appearing in Active Directory Users and Computers.
+![](screenshots/10-domainjoin-s1.png)
+![](screenshots/10-domainjoin-s2.png)
+![](screenshots/10-domainjoin-s3.png)
 
 ## 11. Enabling Remote Desktop to DC01
 
@@ -220,7 +232,11 @@ Then on WIN10-01, I opened the Remote Desktop Connection app and connected to DC
 
 After pressing Connect, I entered the appropriate credentials and signed into DC01 remotely.
 
-Screenshot placeholder: Remote Desktop enabled on DC01 and successful RDP connection from WIN10-01.
+![](screenshots/11-remotedesktop-s1.png)
+![](screenshots/11-remotedesktop-s2.png)
+![](screenshots/11-remotedesktop-s3.png)
+![](screenshots/11-remotedesktop-s4.png)
+![](screenshots/11-remotedesktop-s5.png)
 
 ## 12. Disabling a Domain User Account
 
@@ -232,7 +248,8 @@ Active Directory Users and Computers > Users > right-click John Holmeleb > Disab
 
 **After disabling the account, the user should no longer be able to authenticate using those domain credentials. It is important to note the difference between a local account and a domain account - disabling a domain account prevents that user from authenticating to the domain, but if the user has a separate local account configured on that machine, they may still be able to sign in locally with that account.**
 
-Screenshot placeholder: Disabled user account in Active Directory and failed sign-in attempt.
+![](screenshots/12-disabledomainuser-s1.png)
+![](screenshots/12-disabledomainuser-s2.png)
 
 ## 13. Creating an Account Lockout GPO
 
@@ -262,7 +279,8 @@ I configured the policy with the following settings:
 | Account lockout duration            | 5 minutes                |
 | Reset account lockout counter after | 5 minutes                |
 
-Screenshot placeholder: Account lockout GPO settings.
+![](screenshots/13-account-lockout-gpo-s1.png)
+![](screenshots/13-account-lockout-gpo-s2.png)
 
 ## 14. Prioritizing and Testing the Account Lockout Policy
 
@@ -290,7 +308,9 @@ To unlock John’s account, I went to:
 
 Server Manager > Tools > Active Directory Users and Computers > right-click John > Properties > Account > Unlock Account
 
-Screenshot placeholder: GPO link order, gpupdate /force, net accounts /domain, account lockout test, and unlock account screen.
+![](screenshots/14-test-account-lockout-s1.png)
+![](screenshots/14-test-account-lockout-s2.png)
+![](screenshots/14-test-account-lockout-s3.png)
 
 ## 15. Creating Department Groups and Shared Folders
 
@@ -320,7 +340,11 @@ Sales
 
 HR
 
-Screenshot placeholder: HR and Sales groups in ADUC, group membership, and the Shares folder structure on DC01.
+![](screenshots/15-department-groups-shares-s1.png)
+![](screenshots/15-department-groups-shares-s2.png)
+![](screenshots/15-department-groups-shares-s3.png)
+![](screenshots/15-department-groups-shares-s4.png)
+![](screenshots/15-department-groups-shares-s5.png)
 
 ## 16. Configuring Share and NTFS Permissions
 
@@ -338,7 +362,8 @@ Security > Edit > Add > add the appropriate group > assign the appropriate permi
 
 This allowed me to control which department group had access to each department folder.
 
-Screenshot placeholder: Share permissions and NTFS permissions for the Sales and HR folders.
+![](screenshots/16-share-ntfs-permissions-s1.png)
+![](screenshots/16-share-ntfs-permissions-s2.png)
 
 ## 17. Creating the Department Drive Mapping GPO
 
@@ -382,7 +407,8 @@ From there, I selected the appropriate Sales group so the drive would only map f
 
 I repeated this same process for the HR drive mapping.
 
-Screenshot placeholder: Drive mapping GPO settings for Sales and HR, including item-level targeting.
+![](screenshots/17-drive-mapping-gpo-s1.png)
+![](screenshots/17-drive-mapping-gpo-s2.png)
 
 ## 18. Testing Mapped Drives and Troubleshooting
 
@@ -396,7 +422,9 @@ and logging out and back in, the shared drive populated correctly.
 
 **I’ve never been so happy to see a network share.**
 
-Screenshot placeholder: John’s mapped Sales drive, Sarah’s troubleshooting issue, corrected path, and successful HR drive mapping.
+![](screenshots/18-mapped-drive-test-s1.png)
+![](screenshots/18-mapped-drive-test-s2.png)
+![](screenshots/18-mapped-drive-test-s3.png)
 
 ## Troubleshooting Notes
 
