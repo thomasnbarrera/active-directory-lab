@@ -28,7 +28,7 @@ In progress. Core Active Directory setup, domain user creation, client domain jo
 
 **To prepare for this lab, I downloaded VirtualBox to use as my virtualization platform for the different roles in this environment. I went to Microsoft’s website and downloaded the ISO file for Windows Server 2022, and then used Microsoft’s media creation tool to create an ISO file for Windows 10.**
 
-Screenshot placeholder: VirtualBox download, Windows Server 2022 ISO, and Windows 10 ISO/media creation tool.
+![](screenshots/01-labprep-s1.png)![](screenshots/01-labprep-s2.png)
 
 ## 2. Creating the Domain Controller VM
 
